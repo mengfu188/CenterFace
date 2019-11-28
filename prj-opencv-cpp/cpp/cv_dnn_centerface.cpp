@@ -1,5 +1,7 @@
 #include "cv_dnn_centerface.h"
 
+using namespace std;
+
 Centerface::Centerface(std::string model_path)
 {
 	net = cv::dnn::readNetFromONNX(model_path);
@@ -85,7 +87,7 @@ void Centerface::nms(std::vector<FaceInfo>& input, std::vector<FaceInfo>& output
 			else if (type == NMS_MIN) {
 				IOU = IOU / ((input.at(it_idx).area < input.at(last).area) ? input.at(it_idx).area : input.at(last).area);
 			}
-			if (IOU > threshold) {
+			if (IOU > nmsthreshold) {
 				it = vScores.erase(it);
 			}
 			else {
